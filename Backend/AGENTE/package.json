@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Backend del proyecto AutoGestiónTech para gestión empresarial inteligente.",
   "main": "Core/index.js",
-  "type": "module",              // ← AGREGA ESTA LÍNEA
+  "type": "module",
   "scripts": {
     "start": "node Core/index.js"
   },
