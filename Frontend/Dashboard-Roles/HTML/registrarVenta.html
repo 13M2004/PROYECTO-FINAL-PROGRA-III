@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registrar Venta</title>
+  <link rel="stylesheet" href="../CSS/vendedor.css" />
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="../JS/firebaseConfig.js"></script>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+    <div><strong>AutoGestiónTech - Vendedor</strong></div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <button onclick="window.location.href='registrarVenta.html'">💸 Registrar venta</button>
+    <button onclick="window.location.href='historialVentas.html'">📊 Historial ventas</button>
+    <button onclick="window.location.href='../../login.html'">❌ Cerrar sesión</button>
+  </div>
+
+  <div class="content">
+    <h2>💸 Registrar venta</h2>
+    <form id="venta-form">
+      <label for="producto-select">Producto:</label>
+      <select id="producto-select" required>
+        <option value="">-- Selecciona un producto --</option>
+      </select>
+
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" id="cantidad" min="1" value="1" required />
+
+      <label for="correo-cliente">Correo del cliente:</label>
+      <input type="email" id="correo-cliente" required />
+
+      <button type="submit" class="btn-registrar">✅ Registrar</button>
+    </form>
+  </div>
+
+  <script src="../JS/registrarVenta.js"></script>
+</body>
+</html>

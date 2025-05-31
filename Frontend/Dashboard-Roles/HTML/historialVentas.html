@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Ventas</title>
+  <link rel="stylesheet" href="../CSS/vendedor.css">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="../JS/firebaseConfig.js"></script>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+    <div><strong>AutoGestiónTech - Vendedor</strong></div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <button onclick="window.location.href='registrarVenta.html'">💸 Registrar venta</button>
+    <button onclick="window.location.href='historialVentas.html'">📊 Historial de ventas</button>
+    <button onclick="window.location.href='../../login.html'">❌ Cerrar sesión</button>
+  </div>
+
+  <div class="content">
+    <h2>📊 Historial de Ventas</h2>
+    <div class="tabla-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Fecha</th>
+            <th>Correo</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ventas"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="../JS/historialVentas.js"></script>
+</body>
+</html>

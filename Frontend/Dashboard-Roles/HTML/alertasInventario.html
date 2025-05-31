@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alertas de Inventario</title>
+  <link rel="stylesheet" href="../CSS/jefe.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+    <div><strong>AutoGestiónTech</strong></div>
+    <div>Jefe</div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <button onclick="location.href='estadisticas.html'">📊 Estadísticas</button>
+    <button onclick="location.href='alertasInventario.html'">⚠️ Alertas Inventario</button>
+    <button onclick="location.href='reporteGeneral.html'">📄 Reporte General</button>
+    <button onclick="cerrarSesion()">❌ Cerrar sesión</button>
+  </div>
+
+  <div class="content">
+    <h2>🔔 Productos con Bajo Stock</h2>
+    <ul id="lista-alertas"></ul>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="../../JS/firebaseConfig.js"></script>
+  <script src="../JS/alertasInventario.js"></script>
+</body>
+</html>

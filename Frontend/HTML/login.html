@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio de Sesión</title>
+  <link rel="stylesheet" href="../CSS/login.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>Iniciar Sesión</h1>
+    <form onsubmit="iniciarSesion(event)">
+      <input type="email" id="correo" placeholder="Correo electrónico" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit" class="btn-naranja">Ingresar</button>
+    </form>
+    <a href="index.html" class="btn btn-azul">← Atrás</a>
+    <p id="mensaje"></p>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- Config y lógica -->
+  <script src="../JS/firebaseConfig.js"></script>
+  <script src="../JS/login.js"></script>
+</body>
+</html>
+

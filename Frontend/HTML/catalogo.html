@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+  <meta charset="UTF-8" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+  <title>Catálogo de Productos</title> 
+  <link rel="stylesheet" href="../CSS/catalogo.css" /> 
+</head> 
+<body> 
+ 
+  <!-- Barra superior --> 
+  <div class="top-bar"> 
+    <button class="menu-btn">☰</button> 
+    <div class="top-title">Catálogo de Productos</div> 
+  </div> 
+ 
+  <!-- Menú lateral --> 
+  <div class="sidebar" id="sidebar"> 
+    <div class="sidebar-buttons"> 
+      <button onclick="window.location.href='index.html'">🔙 Atrás</button> 
+      <button class="btn-azul" onclick="mostrarCarrito()">🛒 Ver carrito</button> 
+    </div> 
+  </div> 
+ 
+  <!-- Contenido principal --> 
+  <div class="main-content shrink" id="main-content"> 
+    <main> 
+      <section> 
+        <h2>Laptops</h2> 
+        <div class="productos-fila" id="laptops"></div> 
+      </section> 
+      <section> 
+        <h2>Teclados</h2> 
+        <div class="productos-fila" id="teclados"></div> 
+      </section> 
+      <section> 
+        <h2>Mouse</h2> 
+        <div class="productos-fila" id="mouse"></div> 
+      </section> 
+    </main> 
+  </div> 
+ 
+  <!-- Modal del carrito --> 
+  <div class="carrito-modal" id="carrito-modal"> 
+    <div class="carrito-contenido"> 
+      <h3>🛒 Tu carrito</h3> 
+      <ul id="lista-carrito"></ul> 
+      <p><strong>Total: Q<span id="total-carrito">0</span></strong></p> 
+      <input type="email" id="correo-cliente" placeholder="Tu correo electrónico" /> 
+      <div class="carrito-botones"> 
+        <button onclick="finalizarCompra()">✅ Comprar</button> 
+        <button onclick="cerrarCarrito()">❌ Cancelar</button> 
+      </div> 
+    </div> 
+  </div> 
+ 
+  <!-- Scripts --> 
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script> 
+<script src="../JS/firebaseConfig.js"></script>
+<script src="../JS/catalogo.js"></script>
+</body> 
+</html>

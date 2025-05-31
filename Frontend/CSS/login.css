@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 360px;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+button,
+.btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 12px;
+  box-sizing: border-box;
+}
+
+/* Botón naranja */
+.btn-naranja {
+  background-color: #c4622d;
+  color: white;
+  border: none;
+}
+.btn-naranja:hover {
+  background-color: #9c4d20;
+}
+
+/* Botón azul */
+.btn-azul {
+  background-color: #2c3e94;
+  color: white;
+  border: none;
+}
+.btn-azul:hover {
+  background-color: #1b2d6d;
+}
+
+#mensaje {
+  margin-top: 15px;
+  color: red;
+  font-size: 14px;
+}
