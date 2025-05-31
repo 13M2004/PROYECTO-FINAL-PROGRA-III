@@ -42,21 +42,21 @@
     };
     document.getElementById("descripcion").innerText = descripciones[rol] || "Rol no reconocido.";
 
-    // Menús dinámicos según el rol, con rutas directas
+    // Menús dinámicos según el rol, con rutas CORRECTAS
     const menus = {
       jefe: [
-        { text: "📊 Estadísticas", href: "Dashboard-Roles/HTML/estadisticas.html" },
-        { text: "⚠️ Alertas inventario", href: "Dashboard-Roles/HTML/alertasInventario.html" },
-        { text: "📄 Reporte general", href: "Dashboard-Roles/HTML/reporteGeneral.html" }
+        { text: "📊 Estadísticas", href: "../Dashboard-Roles/HTML/estadisticas.html" },
+        { text: "⚠️ Alertas inventario", href: "../Dashboard-Roles/HTML/alertasInventario.html" },
+        { text: "📄 Reporte general", href: "../Dashboard-Roles/HTML/reporteGeneral.html" }
       ],
       gerente: [
-        { text: "📦 Inventario", href: "Dashboard-Roles/HTML/stockGrafico.html" },
-        { text: "📃 Reportes", href: "Dashboard-Roles/HTML/exportarInventario.html" },
-        { text: "⚙️ Adm productos", href: "Dashboard-Roles/HTML/agregarProducto.html" }
+        { text: "📦 Inventario", href: "../Dashboard-Roles/HTML/stockGrafico.html" },
+        { text: "📃 Reportes", href: "../Dashboard-Roles/HTML/exportarInventario.html" },
+        { text: "⚙️ Adm productos", href: "../Dashboard-Roles/HTML/agregarProducto.html" }
       ],
       vendedor: [
-        { text: "💸 Registrar venta", href: "Dashboard-Roles/HTML/registrarVenta.html" },
-        { text: "📊 Consultar stock", href: "Dashboard-Roles/HTML/historialVentas.html" }
+        { text: "💸 Registrar venta", href: "../Dashboard-Roles/HTML/registrarVenta.html" },
+        { text: "📊 Consultar stock", href: "../Dashboard-Roles/HTML/historialVentas.html" }
       ]
     };
 
