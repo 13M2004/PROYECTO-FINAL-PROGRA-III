@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+
+# Credenciales y entornos
+Backend/AGENTE/agenteVentas/claveFirebase.json
+Backend/AGENTE/agenteVentas/.env
+
+# Archivos de sistema/IDE
+.DS_Store
+.env
+*.env
+
+# Archivos temporales
+*.log
+npm-debug.log*
