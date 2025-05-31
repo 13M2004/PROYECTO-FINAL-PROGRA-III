@@ -1,32 +1,28 @@
 // Core/index.js
 
-// Cargar variables de entorno
 import dotenv from "dotenv";
 dotenv.config();
 
-// Librerías
 import express from "express";
 import cors from "cors";
 
-// Servicios
 import { procesarCompra } from "../agenteVentas/ventasService.js";
 import { ejecutarInventario } from "../agenteInventario/inventarioService.js";
 import { db } from "../agenteVentas/firebase.js";
 
-// Inicializar Express
 const app = express();
 
-// === Configuración CORS PRO ===
+// === Configuración de CORS PRO ===
 const whitelist = [
-  "http://127.0.0.1:5500",     // VS Code Live Server local
-  "http://localhost:5500",     // Variante local (Live Server o local dev)
-  // "https://TUDOMINIO.com"   // <-- Agrega aquí tu dominio en producción, si lo tienes
+  "http://127.0.0.1:5500", // Live Server local
+  "http://localhost:5500", // Otras variantes locales
+  // "https://TUDOMINIO.com" // Agrega tu dominio aquí si tienes frontend en producción
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Permite requests sin origin (como Postman) o si está en la whitelist
+      // Permitir requests desde tools sin origin (Postman, curl), o si están en whitelist
       if (!origin || whitelist.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
@@ -41,7 +37,7 @@ app.use(
 
 app.use(express.json());
 
-// --- RUTAS PRINCIPALES ---
+// --- Rutas principales ---
 
 // Procesar una compra (Agente de Ventas)
 app.post("/comprar", async (req, res) => {

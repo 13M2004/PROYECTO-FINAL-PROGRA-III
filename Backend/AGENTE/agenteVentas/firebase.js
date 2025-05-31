@@ -1,33 +1,15 @@
-// agenteVentas/firebase.js
-
 import admin from "firebase-admin";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
-// 🧭 Obtener ruta absoluta del archivo actual
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// ✅ Ruta absoluta hacia claveFirebase.json
-const rutaClave = path.join(__dirname, "claveFirebase.json");
-
-let serviceAccount;
-try {
-  const rawData = fs.readFileSync(rutaClave, "utf-8");
-  serviceAccount = JSON.parse(rawData);
-} catch (err) {
-  console.error("❌ Error leyendo claveFirebase.json:", err.message);
-  process.exit(1);
-}
-
-// ✅ Inicializar Firebase Admin solo una vez
+// Solo inicializa una vez (importante si usas serverless)
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert({
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+    }),
   });
 }
 
-// 📦 Exportar instancia de Firestore
 const db = admin.firestore();
-export { db };
+export { db, admin };

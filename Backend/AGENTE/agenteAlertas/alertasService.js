@@ -8,7 +8,7 @@ import fetch from "node-fetch";
  */
 export async function enviarAlertaStock(producto, stock) {
   // Webhook n8n para alertas en Telegram
-  const webhook = "https://primary-production-8238a.up.railway.app/webhook/alertas-telegram";
+  const webhook = process.env.N8N_ALERTAS_WEBHOOK || "https://primary-production-8238a.up.railway.app/webhook/alertas-telegram";
 
   // Obtener hora exacta
   const fecha = new Date();

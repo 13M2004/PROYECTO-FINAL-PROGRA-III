@@ -1,9 +1,13 @@
 import fetch from "node-fetch";
 import { db } from "../agenteVentas/firebase.js";
 
-// Sincroniza el inventario completo hacia n8n mediante webhook
+/**
+ * Sincroniza el inventario completo hacia n8n mediante webhook.
+ */
 export const ejecutarInventario = async () => {
-  const webhookUrl = "https://primary-production-8238a.up.railway.app/webhook/inventario-agente";
+  // Webhook configurable por variable de entorno
+  const webhookUrl = process.env.N8N_INVENTARIO_WEBHOOK ||
+    "https://primary-production-8238a.up.railway.app/webhook/inventario-agente";
 
   try {
     // 1. Obtener todos los productos de la colección

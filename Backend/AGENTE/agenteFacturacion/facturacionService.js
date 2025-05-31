@@ -3,23 +3,25 @@ import fetch from "node-fetch";
 
 /**
  * Genera la factura y la envía al webhook de n8n para procesamiento y PDF.
+ * @param {Object} datosVenta - Objeto con productos, total, fecha, correo.
  */
 export async function generarFactura(datosVenta) {
   const { productos, total, fecha, correo } = datosVenta;
 
-  // 🧠 Generar descripción detallada con cantidades
+  // 🧠 Descripción para IA o factura (detallado)
   const descripcionGPT = productos.map(p =>
     `• ${p.producto} x${p.cantidad} - Q${(p.precio * p.cantidad).toFixed(2)}`
   ).join("\n");
 
-  // Arma la info que se mandará a n8n
   const factura = { fecha, correo, total, productos, descripcionGPT };
 
-  // 🔎 Verificar salida en consola (debug)
+  // 🔎 Debug opcional
   console.log("📄 Factura generada (simulada):", factura);
 
-  // 🚀 Enviar al webhook de n8n (factura-agente)
-  const webhook = "https://primary-production-8238a.up.railway.app/webhook/b8e25908-f899-4a5c-b7d4-1494f35b2216";
+  // Webhook de n8n, configurable por variable de entorno
+  const webhook = process.env.N8N_FACTURA_WEBHOOK || 
+    "https://primary-production-8238a.up.railway.app/webhook/b8e25908-f899-4a5c-b7d4-1494f35b2216";
+
   try {
     const response = await fetch(webhook, {
       method: "POST",
@@ -34,6 +36,5 @@ export async function generarFactura(datosVenta) {
     console.error(err.message);
   }
 
-  // Puedes retornar la factura si necesitas seguir usando la info
   return factura;
 }

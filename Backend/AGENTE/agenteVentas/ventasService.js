@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { db } from "./firebase.js";
-import { enviarAlertaStock } from "../agenteAlertas/alertasService.js"; // ✅ Importar función modular de alertas
+import { enviarAlertaStock } from "../agenteAlertas/alertasService.js";
 
 /**
  * Procesa la compra de productos:
@@ -18,8 +18,9 @@ export async function procesarCompra(productos, correo) {
   let total = 0;
   const productosProcesados = [];
 
-  // 🔄 Recorremos cada producto del carrito
+  // 🔄 Procesar cada producto del carrito
   for (const item of productos) {
+    // Busca el producto en la base de datos
     const snapshot = await db.collection("productos").where("nombre", "==", item.nombre).get();
 
     if (snapshot.empty) {
@@ -35,7 +36,7 @@ export async function procesarCompra(productos, correo) {
       continue;
     }
 
-    // ✅ Registrar venta y actualizar stock
+    // Registrar venta
     await db.collection("ventas").add({
       producto: item.nombre,
       precio: Number(data.precio),
@@ -44,6 +45,7 @@ export async function procesarCompra(productos, correo) {
       correo,
     });
 
+    // Actualizar stock
     await db.collection("productos").doc(doc.id).update({
       stock: data.stock - item.cantidad,
     });
@@ -64,8 +66,9 @@ export async function procesarCompra(productos, correo) {
     throw new Error("Ningún producto fue procesado. Verifica stock.");
   }
 
-  // 📦 Webhook → Facturación
-  const webhookFacturacion = "https://primary-production-8238a.up.railway.app/webhook/b8e25908-f899-4a5c-b7d4-1494f35b2216";
+  // 📦 Webhook → Facturación (variable de entorno para flexibilidad)
+  const webhookFacturacion = process.env.N8N_FACTURACION_WEBHOOK || 
+    "https://primary-production-8238a.up.railway.app/webhook/b8e25908-f899-4a5c-b7d4-1494f35b2216";
   await fetch(webhookFacturacion, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -73,7 +76,8 @@ export async function procesarCompra(productos, correo) {
   }).catch(err => console.error("❌ Error en facturación:", err.message));
 
   // 📄 Webhook → Registro en Google Sheets
-  const webhookSheets = "https://primary-production-8238a.up.railway.app/webhook/e12b251b-7baf-4748-8f8c-c6409627cdbf";
+  const webhookSheets = process.env.N8N_SHEETS_WEBHOOK ||
+    "https://primary-production-8238a.up.railway.app/webhook/e12b251b-7baf-4748-8f8c-c6409627cdbf";
   for (const venta of productosProcesados) {
     await fetch(webhookSheets, {
       method: "POST",
