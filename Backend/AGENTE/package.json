@@ -1,4 +1,20 @@
 {
+  "name": "autogestiontech-backend",
+  "version": "1.0.0",
+  "description": "Backend del proyecto AutoGestiónTech para gestión empresarial inteligente.",
+  "main": "Core/index.js",
+  "scripts": {
+    "start": "node Core/index.js"
+  },
+  "keywords": [
+    "backend",
+    "express",
+    "firebase",
+    "autogestiontech",
+    "api"
+  ],
+  "author": "Manuel Monzon",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
