@@ -3,92 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reporte General - AutoGestiónTech</title>
-  <link rel="stylesheet" href="../CSS/jefe.css" />
-  <style>
-    .spinner {
-      display: none;
-      margin: 20px auto;
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #3498db;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .no-data {
-      text-align: center;
-      color: #888;
-      margin-top: 20px;
-      font-size: 18px;
-    }
-
-    #exportar {
-      margin-bottom: 15px; 
-      padding: 10px 15px; 
-      background-color: #3498db; 
-      color: #fff; 
-      border: none; 
-      border-radius: 6px; 
-      cursor: pointer;
-    }
-  </style>
+  <title>Reporte General | AutoGestiónTech</title>
+  <link rel="stylesheet" href="../CSS/gerente.css" />
 </head>
 <body>
-  <header>
-    <div class="titulo">📄 Reporte General</div>
-    <div class="rol">👤 Jefe</div>
-  </header>
-
-  <div class="container">
-    <aside class="sidebar">
-      <button class="menu-button" onclick="window.location.href='estadisticas.html'">📊 Estadísticas</button>
-      <button class="menu-button" onclick="window.location.href='alertasInventario.html'">⚠️ Alertas Inventario</button>
-      <button class="menu-button">📄 Reporte General</button>
-      <button class="menu-button logout" onclick="window.location.href='../../login.html'">❌ Cerrar Sesión</button>
-    </aside>
-
-    <main>
-      <h2>Historial de Ventas Registradas</h2>
-
-      <!-- 🚩 Botón Exportar -->
-      <button id="exportar">📥 Exportar a CSV</button>
-
-      <!-- 🚩 Spinner -->
-      <div id="spinner" class="spinner"></div>
-
-      <!-- 🚩 Tabla con ventas -->
-      <div style="overflow-x: auto;">
-        <table id="tabla-ventas" aria-label="Tabla de historial de ventas">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Correo Cliente</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <!-- 🚩 Mensaje si no hay datos -->
-      <div id="mensajeNoDatos" class="no-data" style="display: none;">
-        No hay ventas registradas todavía.
-      </div>
-    </main>
+  <div class="top-bar">
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+    <div class="centered-title">AutoGestiónTech</div>
   </div>
 
-  <!-- Firebase + Script -->
+  <div class="sidebar" id="sidebar">
+    <button onclick="window.location.href='../../HTML/dashboard.html?rol=gerente'">🏠 Volver al Dashboard</button>
+  </div>
+
+  <div class="content">
+    <h2>Historial de Ventas Registradas</h2>
+    <button id="exportar">📥 Exportar a CSV</button>
+    <div id="spinner" class="spinner"></div>
+    <div style="overflow-x: auto;">
+      <table id="tabla-ventas" aria-label="Tabla de historial de ventas">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Correo Cliente</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="mensajeNoDatos" class="no-data" style="display: none;">
+      No hay ventas registradas todavía.
+    </div>
+  </div>
+
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script src="../JS/firebaseConfig.js"></script>
   <script src="../JS/reporteGeneral.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.querySelector(".sidebar").classList.toggle("hidden");
+      document.body.classList.toggle("collapsed");
+    }
+  </script>
 </body>
 </html>

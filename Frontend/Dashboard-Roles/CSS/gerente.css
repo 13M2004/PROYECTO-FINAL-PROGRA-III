@@ -1,191 +1,235 @@
-/* ========================= */
-/* Estilos Generales Gerente */
-/* ========================= */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background-color: #f4f6f8;
   color: #000;
-  display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-/* ====================== */
-/* Barra superior (top)  */
-/* ====================== */
+/* Barra superior */
 .top-bar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #0b2a5b;
-  color: white;
+  top: 0; left: 0; width: 100%; height: 44px;
+  background-color: #1a2955;
+  color: #fff;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 0 20px;
   z-index: 1000;
 }
-
 .menu-toggle {
-  font-size: 26px;
+  position: absolute;
+  left: 14px;
+  font-size: 21px;
   cursor: pointer;
 }
+.centered-title {
+  font-size: 1.23rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  width: 100%;
+  user-select: none;
+  text-align: center;
+}
 
-/* ===================== */
-/* Menú lateral sidebar  */
-/* ===================== */
+/* Sidebar */
 .sidebar {
   position: fixed;
-  top: 50px;
+  top: 44px;
   left: 0;
-  width: 220px;
-  height: calc(100% - 50px);
-  background-color: #0b2a5b;
-  padding: 20px;
+  width: 155px;
+  height: calc(100% - 44px);
+  background-color: #1a2955;
+  padding: 13px 6px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   overflow-y: auto;
+  transition: left 0.3s;
+  z-index: 100;
 }
+.sidebar.hidden { left: -155px; }
 
+/* Botones del menú */
 .sidebar button {
   display: block;
-  margin: 12px 0;
-  padding: 12px;
+  margin: 10px 0;
+  padding: 13px 10px;
   width: 100%;
-  background-color: #2ecc71;
-  color: white;
+  background-color: #75d694;
+  color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   text-align: left;
-  transition: background-color 0.3s ease;
+  font-weight: 500;
+  transition: background 0.18s;
+  box-shadow: 0 1px 3px rgba(26,41,85,0.06);
 }
+.sidebar button.logout { background-color: #e74c3c; }
+.sidebar button:hover { background-color: #61c67e; }
+.sidebar button.logout:hover { background-color: #c0392b; }
 
-.sidebar button:hover {
-  background-color: #27ae60;
-}
-
-.sidebar button.logout {
-  background-color: #e74c3c;
-}
-
-.sidebar button.logout:hover {
-  background-color: #c0392b;
-}
-
-/* ===================== */
-/* Contenido principal   */
-/* ===================== */
+/* Contenido */
 .content {
-  margin-left: 220px;
-  padding: 70px 30px 30px 30px;
-  flex: 1;
+  margin-left: 155px;
+  padding: 54px 24px 16px 24px;
+  min-height: calc(100vh - 44px);
+  height: calc(100vh - 44px);
+  transition: margin-left 0.3s;
+  background: #fff;
   overflow-y: auto;
-  transition: margin-left 0.3s ease;
 }
+.collapsed .content, body.collapsed .content { margin-left: 0; }
 
+/* Título h2 */
 h2 {
+  margin-bottom: 14px;
   margin-top: 0;
-  color: #0b2a5b;
-  font-size: 28px;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
-/* ===================== */
-/* Canvas del gráfico    */
-/* ===================== */
-canvas#graficoStock {
+/* ---- MODERNO: Formulario Agregar Producto ---- */
+form#formulario-producto {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
   width: 100%;
-  max-width: 800px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-  margin-top: 20px;
+  max-width: 520px;
+  margin: 28px auto 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+form#formulario-producto label {
+  font-weight: 500;
+  color: #193265;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+form#formulario-producto input,
+form#formulario-producto select {
+  border: 1px solid #b2c0d6;
+  border-radius: 7px;
+  padding: 10px 9px;
+  margin-bottom: 7px;
+  font-size: 1rem;
+  background: #f7faff;
+  transition: border 0.18s;
+}
+form#formulario-producto input:focus,
+form#formulario-producto select:focus {
+  border: 1.7px solid #3498db;
+  outline: none;
+  background: #fff;
+}
+form#formulario-producto button[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 12px 0;
+  font-size: 1.07rem;
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 18px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(26,41,85,0.07);
+  transition: background 0.2s;
+  letter-spacing: 0.3px;
+}
+form#formulario-producto button[type="submit"]:hover {
+  background-color: #217dbb;
 }
 
-/* ===================== */
-/* Estilo del formulario */
-/* ===================== */
-form {
-  background-color: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  max-width: 450px;
-  margin-top: 20px;
+/* Responsive para el formulario y layout */
+@media (max-width: 900px) {
+  .sidebar { width: 80px; padding: 7px 2px; }
+  .sidebar.hidden { left: -80px; }
+  .content { margin-left: 80px; padding: 14px 2vw 8px 2vw; }
+  .collapsed .content, body.collapsed .content { margin-left: 0; }
+  .centered-title { font-size: 1rem; }
+  form#formulario-producto { max-width: 99vw; }
 }
 
-form input, form select {
+/* Tablas y canvas */
+canvas, table {
+  max-width: 100%;
+  background: white;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+table {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-size: 15px;
+  border-collapse: collapse;
+  margin-top: 8px;
 }
+table th, table td {
+  padding: 8px 7px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 1rem;
+}
+table th {
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+}
+table tr:hover { background-color: #f1f1f1; }
 
-form button {
-  width: 100%;
-  background-color: #2980b9;
+/* Botón Exportar */
+#exportar, #exportar-btn, .exportar-btn {
+  margin: 10px 0;
+  padding: 9px 15px;
+  background-color: #3498db;
   color: white;
   border: none;
-  padding: 14px;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s;
+}
+#exportar:hover, #exportar-btn:hover, .exportar-btn:hover { background-color: #2980b9; }
+
+/* Spinner */
+.spinner, #spinner, #spinner-container {
+  display: none;
+  margin: 14px auto;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-form button:hover {
-  background-color: #216a94;
+/* Mensaje sin datos */
+.no-data {
+  text-align: center;
+  color: #888;
+  font-size: 1rem;
+  margin-top: 11px;
 }
 
-/* ===================== */
-/* Botón de exportación  */
-/* ===================== */
-#exportar-btn, .exportar-btn {
-  padding: 14px 24px;
-  background-color: #ffa500;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
-}
-
-#exportar-btn:hover, .exportar-btn:hover {
-  background-color: #e69500;
-}
-
-/* ===================== */
-/* Spinner de carga */
-/* ===================== */
-#spinner {
-  font-size: 16px;
-  color: #0b2a5b;
-  margin-top: 15px;
-}
-
-/* ===================== */
-/* Responsive ajustes */
-/* ===================== */
-@media screen and (max-width: 768px) {
-  .content {
-    margin-left: 0;
-    padding: 60px 20px;
-  }
-  .sidebar {
-    width: 200px;
-  }
-  form {
-    width: 100%;
-  }
+/* Alertas tipo tarjeta */
+.alerta {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 9px 13px;
+  border-radius: 7px;
+  margin-bottom: 9px;
+  font-weight: bold;
+  font-size: 1rem;
 }

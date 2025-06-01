@@ -9,26 +9,23 @@
 <body>
   <div class="top-bar">
     <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
-    <div><strong>AutoGestiónTech - Gerente</strong></div>
+    <div class="centered-title">AutoGestiónTech</div>
   </div>
-
   <div class="sidebar" id="sidebar">
-    <button onclick="window.location.href='stockGrafico.html'">📊 Stock por categoría</button>
-    <button onclick="window.location.href='agregarProducto.html'">➕ Agregar producto</button>
-    <button onclick="window.location.href='exportarInventario.html'">📤 Exportar inventario</button>
-    <button onclick="window.location.href='../../login.html'">❌ Cerrar sesión</button>
+    <button onclick="window.location.href='../../HTML/dashboard.html?rol=gerente'">🏠 Volver al Dashboard</button>
   </div>
-
   <div class="content">
     <h2>📤 Exportar Inventario</h2>
     <p>Presiona el botón para sincronizar los productos con Google Sheets:</p>
-    
     <button id="exportar-btn">📥 Exportar a Sheets</button>
-    
-    <!-- 🚩 Spinner de carga -->
     <div id="spinner" style="text-align: center; margin-top: 20px;"></div>
   </div>
-
+  <script>
+    function toggleSidebar() {
+      document.querySelector(".sidebar").classList.toggle("hidden");
+      document.body.classList.toggle("collapsed");
+    }
+  </script>
   <script src="../JS/exportarInventario.js"></script>
 </body>
 </html>

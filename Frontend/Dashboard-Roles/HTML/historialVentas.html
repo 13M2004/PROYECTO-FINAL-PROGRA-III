@@ -4,26 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Historial de Ventas</title>
-  <link rel="stylesheet" href="../CSS/vendedor.css">
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-  <script src="../JS/firebaseConfig.js"></script>
+  <link rel="stylesheet" href="../CSS/gerente.css">
 </head>
 <body>
   <div class="top-bar">
     <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
-    <div><strong>AutoGestiónTech - Vendedor</strong></div>
+    <div class="centered-title">AutoGestiónTech</div>
   </div>
 
   <div class="sidebar" id="sidebar">
-    <button onclick="window.location.href='registrarVenta.html'">💸 Registrar venta</button>
-    <button onclick="window.location.href='historialVentas.html'">📊 Historial de ventas</button>
-    <button onclick="window.location.href='../../login.html'">❌ Cerrar sesión</button>
+    <button onclick="window.location.href='stockGrafico.html'">📦 Inventario</button>
+    <button onclick="window.location.href='historialVentas.html'">📄 Reportes</button>
+    <button onclick="window.location.href='agregarProducto.html'">⚙️ Adm productos</button>
+    <button onclick="cerrarSesion()" class="logout">❌ Cerrar sesión</button>
   </div>
 
   <div class="content">
-    <h2>📊 Historial de Ventas</h2>
+    <h2>📄 Historial de Ventas</h2>
     <div class="tabla-container">
       <table>
         <thead>
@@ -39,7 +36,15 @@
       </table>
     </div>
   </div>
-
   <script src="../JS/historialVentas.js"></script>
+  <script>
+    function cerrarSesion() {
+      window.location.href = '../../login.html';
+    }
+    function toggleSidebar() {
+      document.querySelector(".sidebar").classList.toggle("hidden");
+      document.body.classList.toggle("collapsed");
+    }
+  </script>
 </body>
 </html>

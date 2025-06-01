@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../CSS/dashboard.css">
+  <title>Inventario | AutoGestiónTech</title>
+  <!-- Asegúrate de apuntar a la clase de vendedor para el diseño -->
+  <link rel="stylesheet" href="../CSS/vendedor.css">
 </head>
 <body>
-  <!-- Barra superior con el nombre centrado -->
+  <!-- Barra superior -->
   <div class="top-bar">
     <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
     <div class="centered-title">AutoGestiónTech</div>
@@ -21,46 +22,39 @@
 
   <!-- Contenido principal -->
   <div class="content">
-    <h2 id="bienvenida"></h2>
-    <p id="descripcion"></p>
+    <h2>📦 Inventario de Productos</h2>
+    <table id="tabla-inventario">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Marca</th>
+          <th>Precio (Q)</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los productos se llenan dinámicamente -->
+      </tbody>
+    </table>
   </div>
 
+  <!-- Firebase y tu script para cargar inventario -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="../JS/firebaseConfig.js"></script>
+  <script src="../JS/inventario.js"></script>
+
   <script>
-    // Obtén el parámetro de rol desde la URL
+    // Menú lateral igual que el dashboard, pero ajusta rutas para vendedor
     const params = new URLSearchParams(window.location.search);
-    const rol = params.get('rol');
-
-    // Mensaje de bienvenida
-    document.getElementById("bienvenida").innerText =
-      rol ? "Bienvenido " + rol.charAt(0).toUpperCase() + rol.slice(1) : "Bienvenido";
-
-    // Descripciones personalizadas por rol
-    const descripciones = {
-      jefe: "Visualiza estadísticas, reportes y recibe alertas del inventario.",
-      gerente: "Accede al inventario, genera reportes y administra productos.",
-      vendedor: "Registra ventas y consulta el stock disponible."
-    };
-    document.getElementById("descripcion").innerText = descripciones[rol] || "Rol no reconocido.";
-
-    // Menús dinámicos según el rol, con rutas CORRECTAS
+    const rol = params.get('rol') || "vendedor";
     const menus = {
-      jefe: [
-        { text: "📊 Estadísticas", href: "../Dashboard-Roles/HTML/estadisticas.html" },
-        { text: "⚠️ Alertas inventario", href: "../Dashboard-Roles/HTML/alertasInventario.html" },
-        { text: "📄 Reporte general", href: "../Dashboard-Roles/HTML/reporteGeneral.html" }
-      ],
-      gerente: [
-        { text: "📦 Inventario", href: "../Dashboard-Roles/HTML/stockGrafico.html" },
-        { text: "📃 Reportes", href: "../Dashboard-Roles/HTML/exportarInventario.html" },
-        { text: "⚙️ Adm productos", href: "../Dashboard-Roles/HTML/agregarProducto.html" }
-      ],
       vendedor: [
         { text: "💸 Registrar venta", href: "../Dashboard-Roles/HTML/registrarVenta.html" },
-        { text: "📊 Consultar stock", href: "../Dashboard-Roles/HTML/historialVentas.html" }
+        { text: "📦 Consultar stock", href: "../Dashboard-Roles/HTML/inventario.html" }
       ]
     };
-
-    // Carga los botones del menú lateral según el rol y conecta a su pantalla
     const menu = document.getElementById("menu-buttons");
     if (menus[rol]) {
       menus[rol].forEach(item => {
@@ -70,13 +64,11 @@
         menu.appendChild(btn);
       });
     }
-
-    // Cerrar sesión
     function cerrarSesion() {
-      window.location.href = "login.html";
+      firebase.auth().signOut()
+        .then(() => window.location.href = "../../HTML/login.html")
+        .catch(() => window.location.href = "../../HTML/login.html");
     }
-
-    // Mostrar/ocultar menú lateral
     function toggleSidebar() {
       document.querySelector(".sidebar").classList.toggle("hidden");
       document.body.classList.toggle("collapsed");

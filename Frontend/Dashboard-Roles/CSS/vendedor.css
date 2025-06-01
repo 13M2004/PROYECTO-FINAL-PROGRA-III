@@ -1,183 +1,233 @@
-/* ============================== */
-/* Estilos Generales para Vendedor */
-/* ============================== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background-color: #f4f6f8;
   color: #000;
-  display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-/* ====================== */
-/* Barra Superior (Top Bar) */
-/* ====================== */
+/* Barra superior */
 .top-bar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #0b2a5b;
-  color: white;
+  top: 0; left: 0; width: 100%; height: 44px;
+  background-color: #1a2955;
+  color: #fff;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 0 20px;
   z-index: 1000;
 }
-
 .menu-toggle {
-  font-size: 26px;
+  position: absolute;
+  left: 14px;
+  font-size: 21px;
   cursor: pointer;
 }
+.centered-title {
+  font-size: 1.23rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  width: 100%;
+  user-select: none;
+  text-align: center;
+}
 
-/* ==================== */
-/* Menú Lateral (Sidebar) */
-/* ==================== */
+/* Sidebar */
 .sidebar {
   position: fixed;
-  top: 50px;
+  top: 44px;
   left: 0;
-  width: 220px;
-  height: calc(100% - 50px);
-  background-color: #0b2a5b;
-  padding: 20px;
+  width: 155px;
+  height: calc(100% - 44px);
+  background-color: #1a2955;
+  padding: 13px 6px;
   box-sizing: border-box;
   overflow-y: auto;
+  transition: left 0.3s;
+  z-index: 100;
 }
-
+.sidebar.hidden { left: -155px; }
 .sidebar button {
   display: block;
-  margin: 12px 0;
-  padding: 10px;
+  margin: 10px 0;
+  padding: 13px 10px;
   width: 100%;
-  background-color: #2ecc71;
-  color: white;
+  background-color: #75d694;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
   text-align: left;
+  font-weight: 500;
+  transition: background 0.18s;
+  box-shadow: 0 1px 3px rgba(26,41,85,0.06);
 }
+.sidebar button.logout { background-color: #e74c3c; }
+.sidebar button:hover { background-color: #61c67e; }
+.sidebar button.logout:hover { background-color: #c0392b; }
 
-.sidebar button.logout {
-  background-color: #e74c3c;
-}
-
-.sidebar button:hover {
-  background-color: #27ae60;
-}
-
-/* ====================== */
-/* Contenido Principal */
-/* ====================== */
+/* Contenido */
 .content {
-  margin-left: 220px;
-  padding: 70px 30px;
-  flex: 1;
-  transition: margin-left 0.3s ease;
+  margin-left: 155px;
+  padding: 100px 24px 16px 24px;  /* <-- Padding top mayor para bajar todo el contenido */
+  min-height: calc(100vh - 44px);
+  height: calc(100vh - 44px);
+  transition: margin-left 0.3s;
+  background: #fff;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
+.collapsed .content, body.collapsed .content { margin-left: 0; }
 
+/* Título h2 */
 h2 {
-  color: #0b2a5b;
-  margin-bottom: 20px;
-}
-
-/* ====================== */
-/* Formulario Registro de Ventas */
-/* ====================== */
-form {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 450px;
-  margin-bottom: 30px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
+  margin-bottom: 32px;
+  margin-top: 0;
+  font-size: 1.6rem;
   font-weight: bold;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
 }
 
-input, select {
+/* Formulario moderno y expandido */
+form, form#venta-form {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form label,
+form#venta-form label {
+  font-weight: 500;
+  color: #193265;
+  font-size: 1.12rem;
+  margin-bottom: 8px;
+  margin-top: 0;
+  align-self: flex-start;
+  margin-left: 2px;
+  letter-spacing: 0.2px;
+}
+
+form input,
+form select,
+form#venta-form input,
+form#venta-form select {
+  border: 1.5px solid #b2c0d6;
   border-radius: 8px;
+  padding: 17px 18px;
+  margin-bottom: 25px;
+  font-size: 1.20rem;
+  background: #f7faff;
+  transition: border 0.18s;
+  width: 100%;
+  max-width: 610px;
+  min-width: 180px;
   box-sizing: border-box;
 }
 
-button[type="submit"] {
-  background-color: #a95e2b;
-  color: white;
+form input:focus, form select:focus,
+form#venta-form input:focus, form#venta-form select:focus {
+  border: 2px solid #3498db;
+  outline: none;
+  background: #fff;
+}
+
+form button[type="submit"],
+form#venta-form button[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
   border: none;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 8px;
+  border-radius: 9px;
+  padding: 16px 0;
+  font-size: 1.20rem;
+  font-weight: 600;
+  margin-top: 8px;
+  margin-bottom: 0;
   cursor: pointer;
+  box-shadow: 0 1px 3px rgba(26,41,85,0.07);
+  transition: background 0.2s;
+  letter-spacing: 0.3px;
   width: 100%;
+  max-width: 610px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+form button[type="submit"]:hover,
+form#venta-form button[type="submit"]:hover {
+  background-color: #217dbb;
 }
 
-button[type="submit"]:hover {
-  background-color: #8c481c;
-}
-
-/* ========================== */
-/* Tabla de Historial de Ventas */
-/* ========================== */
-table {
+/* --------- INVENTARIO (TABLA) --------- */
+.content table {
   width: 100%;
-  background-color: white;
-  border-collapse: collapse;
-  margin-top: 20px;
+  max-width: 900px;
+  margin: 0 auto 16px auto;
+  background: white;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  font-size: 1.08rem;
+  box-shadow: 0 2px 10px rgba(26,41,85,0.10);
 }
-
-thead {
-  background-color: #0b2a5b;
-  color: white;
-}
-
-th, td {
-  padding: 12px 15px;
+.content th, .content td {
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  padding: 15px 16px;
+}
+.content th {
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  font-size: 1.07rem;
+  letter-spacing: 0.5px;
+}
+.content tr:hover { background-color: #f1f1f1; }
+.content tr:last-child td { border-bottom: none; }
+.content td {
+  border-bottom: 1px solid #e0e4ed;
+  font-size: 1.06rem;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+@media (max-width: 1100px) {
+  .content table, .content th, .content td {
+    font-size: 0.98rem;
+    max-width: 99vw;
+  }
+  .content th, .content td {
+    padding: 12px 6px;
+  }
+}
+@media (max-width: 900px) {
+  .sidebar { width: 80px; padding: 7px 2px; }
+  .sidebar.hidden { left: -80px; }
+  .content { margin-left: 80px; padding: 80px 2vw 8px 2vw; }
+  .collapsed .content, body.collapsed .content { margin-left: 0; }
+  .centered-title { font-size: 1rem; }
+  form, form#venta-form { max-width: 99vw; }
+  form input, form select, form#venta-form input, form#venta-form select,
+  form button[type="submit"], form#venta-form button[type="submit"] { max-width: 97vw; }
+  .content table { max-width: 99vw; font-size: 0.97rem; }
 }
 
-tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-/* Responsive para pantallas pequeñas */
-@media (max-width: 768px) {
-  .content {
-    margin-left: 0;
-    padding: 70px 15px;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: static;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .sidebar button {
-    flex: 1 1 45%;
-    margin: 10px 5px;
-  }
+/* Oculta scroll horizontal y mejora experiencia visual */
+.content {
+  overflow-x: auto;
 }
