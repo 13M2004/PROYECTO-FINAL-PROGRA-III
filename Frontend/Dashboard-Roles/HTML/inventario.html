@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventario | AutoGestiónTech</title>
+  <link rel="stylesheet" href="../CSS/vendedor.css">
+</head>
+<body>
+  <!-- Barra superior -->
+  <div class="top-bar">
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+    <div class="centered-title">AutoGestiónTech</div>
+  </div>
+
+  <!-- Sidebar solo con Volver -->
+  <div class="sidebar" id="sidebar">
+    <button onclick="window.location.href='../../HTML/dashboard.html?rol=vendedor'">🏠 Volver al Dashboard</button>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="content">
+    <h2>📦 Inventario actual</h2>
+    <p style="margin-top:-18px; margin-bottom:32px; font-size:1.13rem; color:#232f46; text-align:center;">
+      Consulta los productos disponibles y su stock en tiempo real.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Marca</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-inventario">
+        <!-- Aquí carga el JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="../JS/firebaseConfig.js"></script>
+  <script src="../JS/inventario.js"></script>
+  <script>
+    // Mostrar/ocultar menú lateral
+    function toggleSidebar() {
+      document.querySelector(".sidebar").classList.toggle("hidden");
+      document.body.classList.toggle("collapsed");
+    }
+  </script>
+</body>
+</html>
