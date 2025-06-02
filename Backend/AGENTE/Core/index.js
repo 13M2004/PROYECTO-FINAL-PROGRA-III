@@ -16,6 +16,8 @@ const whitelist = [
   "https://primary-production-8238a.up.railway.app" // <- Railway backend (permite llamadas directas)
 ];
 
+const app = express(); // ✅ DEBE IR ANTES
+
 // Middleware de CORS configurado
 app.use(
   cors({
@@ -33,7 +35,6 @@ app.use(
   })
 );
 
-const app = express();
 app.use(express.json());
 
 // --- Rutas principales ---
