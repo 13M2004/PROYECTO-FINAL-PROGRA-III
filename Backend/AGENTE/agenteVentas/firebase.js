@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config(); // 👈 Esto siempre va al principio
+
 import admin from "firebase-admin";
 
 // Depuración: checa que la variable esté definida
