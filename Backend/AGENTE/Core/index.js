@@ -1,51 +1,56 @@
-// Core/index.js
+// === Cargar variables de entorno (.env) ===
 import dotenv from "dotenv";
-dotenv.config(); // 👈 Siempre primero
+dotenv.config(); // ¡Siempre primero!
 
+// === Importar librerías principales ===
 import express from "express";
 import cors from "cors";
 
-// IMPORTA tus servicios de agentes
+// === Importar servicios de tus agentes ===
 import { procesarCompra } from "../agenteVentas/ventasService.js";
 import { ejecutarInventario } from "../agenteInventario/inventarioService.js";
 import { db } from "../agenteVentas/firebase.js";
 
-// 🟩 AGREGA aquí todos los dominios FRONTEND que vayas a usar
+// === Definir Whitelist de dominios frontend permitidos ===
 const whitelist = [
-  "http://127.0.0.1:5500",                                 // Frontend local
-  "http://localhost:5500",                                 // Frontend local alterno
-  "https://proyecto-final-progra-iii-production.up.railway.app" // Railway (por si usas HTML ahí algún día)
+  "http://127.0.0.1:5500",                                 // Tu frontend local (Live Server)
+  "http://localhost:5500",                                 // Otra variante de Live Server
+  "https://proyecto-final-progra-iii-production.up.railway.app" // Railway, si algún día sirves HTML ahí
 ];
 
-const app = express(); // ¡Primero instancia Express!
+// === Instanciar Express ===
+const app = express(); // Siempre primero
 
-// --- CORS Middleware ---
+// === Middleware CORS ===
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Permite tools sin origin (Postman/curl) o si están en whitelist
+      // Permite si el origin está en la whitelist o si no hay origin (ej: Postman)
       if (!origin || whitelist.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("No permitido por CORS: " + origin));
       }
     },
-    credentials: true,
+    credentials: true, // Permite cookies/sesiones si usas
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
+// === Middleware para JSON ===
 app.use(express.json());
 
-// --- Rutas principales ---
+// =====================
+// === RUTAS PRINCIPALES ===
+// =====================
 
-// Prueba básica: muestra estado del backend (útil para Railway)
+// --- Ruta raíz para prueba y status ---
 app.get("/", (req, res) => {
   res.status(200).send("✅ Backend AutoGestiónTech activo.");
 });
 
-// Procesar una compra (Agente de Ventas)
+// --- Procesar una compra (Agente de Ventas) ---
 app.post("/comprar", async (req, res) => {
   const { productos, correo } = req.body;
   try {
@@ -57,7 +62,7 @@ app.post("/comprar", async (req, res) => {
   }
 });
 
-// Exportar el inventario a Google Sheets (Agente de Inventario)
+// --- Exportar inventario a Google Sheets (Agente de Inventario) ---
 app.post("/ejecutar-inventario", async (req, res) => {
   try {
     await ejecutarInventario();
@@ -68,7 +73,7 @@ app.post("/ejecutar-inventario", async (req, res) => {
   }
 });
 
-// Obtener todos los productos del inventario (usado por n8n)
+// --- Obtener todos los productos del inventario (n8n, pruebas, etc.) ---
 app.get("/productos", async (req, res) => {
   try {
     const snapshot = await db.collection("productos").get();
@@ -80,7 +85,7 @@ app.get("/productos", async (req, res) => {
   }
 });
 
-// Puerto de ejecución
+// === Arrancar servidor ===
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Backend corriendo en http://localhost:${PORT} o en Railway`);
