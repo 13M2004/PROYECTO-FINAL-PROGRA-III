@@ -7,7 +7,7 @@ import { enviarAlertaStock } from "../agenteAlertas/alertasService.js";
  * - Valida datos
  * - Registra la venta
  * - Actualiza el stock
- * - Lanza webhooks: facturación, Sheets, alertas
+ * - Lanza webhooks: facturación, Sheets, alertas, inventario
  */
 export async function procesarCompra(productos, correo) {
   if (!Array.isArray(productos) || productos.length === 0 || !correo?.includes("@")) {
@@ -94,6 +94,28 @@ export async function procesarCompra(productos, correo) {
     if (info?.stock <= 5) {
       await enviarAlertaStock(item.producto, info.stock);
     }
+  }
+
+  // === 👉🏽 Sincronizar inventario completo con n8n (inventario-agente) ===
+  try {
+    // Obtener todo el inventario actualizado
+    const inventarioSnapshot = await db.collection("productos").get();
+    const inventarioCompleto = inventarioSnapshot.docs.map(doc => doc.data());
+
+    // Webhook inventario-agente
+    const webhookInventario = process.env.N8N_INVENTARIO_WEBHOOK ||
+      "https://primary-production-8238a.up.railway.app/webhook/inventario-agente";
+
+    // Enviar inventario completo a n8n
+    await fetch(webhookInventario, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productos: inventarioCompleto }),
+    });
+
+    console.log("✅ Inventario sincronizado con n8n (inventario-agente)");
+  } catch (err) {
+    console.error("❌ Error al sincronizar inventario con n8n:", err.message);
   }
 
   return "Compra procesada correctamente.";
