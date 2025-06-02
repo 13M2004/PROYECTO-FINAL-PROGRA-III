@@ -1,5 +1,6 @@
+// Core/index.js
 import dotenv from "dotenv";
-dotenv.config(); // 👈 Siempre al principio para cargar variables
+dotenv.config(); // 👈 Siempre primero
 
 import express from "express";
 import cors from "cors";
@@ -9,16 +10,16 @@ import { procesarCompra } from "../agenteVentas/ventasService.js";
 import { ejecutarInventario } from "../agenteInventario/inventarioService.js";
 import { db } from "../agenteVentas/firebase.js";
 
-// 💡 AGREGA aquí tu dominio de Railway (y cualquier otro frontend real en el futuro)
+// 💡 AGREGA aquí todos los dominios front que vayas a usar (Railway, Vercel, Netlify, etc.)
 const whitelist = [
   "http://127.0.0.1:5500",
   "http://localhost:5500",
-  "https://primary-production-8238a.up.railway.app" // <- Railway backend (permite llamadas directas)
+  "https://proyecto-final-progra-iii-production.up.railway.app", // Railway Backend (para pruebas directas)
 ];
 
-const app = express(); // ✅ DEBE IR ANTES
+const app = express(); // 🟢 Instancia primero
 
-// Middleware de CORS configurado
+// --- CORS Middleware ---
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -38,6 +39,10 @@ app.use(
 app.use(express.json());
 
 // --- Rutas principales ---
+// Prueba básica: muestra estado del backend (NO necesario, pero ayuda en Railway)
+app.get("/", (req, res) => {
+  res.status(200).send("✅ Backend AutoGestiónTech activo.");
+});
 
 // Procesar una compra (Agente de Ventas)
 app.post("/comprar", async (req, res) => {
