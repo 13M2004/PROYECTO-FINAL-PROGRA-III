@@ -1,6 +1,8 @@
 import admin from "firebase-admin";
 
-// Solo inicializa una vez (importante si usas serverless)
+// Depuración: checa que la variable esté definida
+console.log('FIREBASE_PRIVATE_KEY:', process.env.FIREBASE_PRIVATE_KEY ? 'OK' : 'NOT FOUND');
+
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert({
