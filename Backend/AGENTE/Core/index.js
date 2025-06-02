@@ -1,32 +1,26 @@
-// Core/index.js
-
 import dotenv from "dotenv";
-// IMPORTANTE: carga el .env desde la raíz de AGENTE (¡ya está bien ubicado!)
-dotenv.config();
-
-// DEPURACIÓN: verifica si la variable se detecta
-console.log("DEBUG FIREBASE_PRIVATE_KEY:", process.env.FIREBASE_PRIVATE_KEY ? "DETECTADA" : "NO DETECTADA");
+dotenv.config(); // 👈 Siempre al principio para cargar variables
 
 import express from "express";
 import cors from "cors";
 
+// IMPORTA tus servicios de agentes
 import { procesarCompra } from "../agenteVentas/ventasService.js";
 import { ejecutarInventario } from "../agenteInventario/inventarioService.js";
 import { db } from "../agenteVentas/firebase.js";
 
-const app = express();
-
-// === Configuración de CORS PRO ===
+// 💡 AGREGA aquí tu dominio de Railway (y cualquier otro frontend real en el futuro)
 const whitelist = [
   "http://127.0.0.1:5500",
   "http://localhost:5500",
-  // "https://TUDOMINIO.com" // Agrega tu dominio aquí si tienes frontend en producción
+  "https://primary-production-8238a.up.railway.app" // <- Railway backend (permite llamadas directas)
 ];
 
+// Middleware de CORS configurado
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Permitir requests desde tools sin origin (Postman, curl), o si están en whitelist
+      // Permite tools sin origin (Postman/curl) o si están en whitelist
       if (!origin || whitelist.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
@@ -39,6 +33,7 @@ app.use(
   })
 );
 
+const app = express();
 app.use(express.json());
 
 // --- Rutas principales ---
