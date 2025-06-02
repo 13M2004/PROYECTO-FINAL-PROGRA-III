@@ -10,21 +10,21 @@ import { procesarCompra } from "../agenteVentas/ventasService.js";
 import { ejecutarInventario } from "../agenteInventario/inventarioService.js";
 import { db } from "../agenteVentas/firebase.js";
 
-// 💡 AGREGA aquí todos los dominios front que vayas a usar (Railway, Vercel, Netlify, etc.)
+// 🟩 AGREGA aquí todos los dominios FRONTEND que vayas a usar
 const whitelist = [
-  "http://127.0.0.1:5500",
-  "http://localhost:5500",
-  "https://proyecto-final-progra-iii-production.up.railway.app", // Railway Backend (para pruebas directas)
+  "http://127.0.0.1:5500",                                 // Frontend local
+  "http://localhost:5500",                                 // Frontend local alterno
+  "https://proyecto-final-progra-iii-production.up.railway.app" // Railway (por si usas HTML ahí algún día)
 ];
 
-const app = express(); // 🟢 Instancia primero
+const app = express(); // ¡Primero instancia Express!
 
 // --- CORS Middleware ---
 app.use(
   cors({
     origin: function (origin, callback) {
       // Permite tools sin origin (Postman/curl) o si están en whitelist
-      if (!origin || whitelist.indexOf(origin) !== -1) {
+      if (!origin || whitelist.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("No permitido por CORS: " + origin));
@@ -39,7 +39,8 @@ app.use(
 app.use(express.json());
 
 // --- Rutas principales ---
-// Prueba básica: muestra estado del backend (NO necesario, pero ayuda en Railway)
+
+// Prueba básica: muestra estado del backend (útil para Railway)
 app.get("/", (req, res) => {
   res.status(200).send("✅ Backend AutoGestiónTech activo.");
 });
