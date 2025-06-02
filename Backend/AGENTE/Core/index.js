@@ -1,7 +1,11 @@
 // Core/index.js
 
 import dotenv from "dotenv";
+// IMPORTANTE: carga el .env desde la raíz de AGENTE (¡ya está bien ubicado!)
 dotenv.config();
+
+// DEPURACIÓN: verifica si la variable se detecta
+console.log("DEBUG FIREBASE_PRIVATE_KEY:", process.env.FIREBASE_PRIVATE_KEY ? "DETECTADA" : "NO DETECTADA");
 
 import express from "express";
 import cors from "cors";
@@ -14,8 +18,8 @@ const app = express();
 
 // === Configuración de CORS PRO ===
 const whitelist = [
-  "http://127.0.0.1:5500", // Live Server local
-  "http://localhost:5500", // Otras variantes locales
+  "http://127.0.0.1:5500",
+  "http://localhost:5500",
   // "https://TUDOMINIO.com" // Agrega tu dominio aquí si tienes frontend en producción
 ];
 
